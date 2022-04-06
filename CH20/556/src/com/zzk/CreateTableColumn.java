@@ -1,0 +1,48 @@
+package com.zzk;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Font;
+import com.lowagie.text.Table;
+import com.lowagie.text.pdf.BaseFont;
+import com.lowagie.text.pdf.PdfWriter;
+
+public class CreateTableColumn {
+    
+    public static void main(String[] args) {
+        Document document = new Document();// 建立文件對像
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream(
+                    "C:\\建立具有指定列數的表格.pdf"));// 關聯文件對象與輸出流
+            document.open();// 開啟文件
+            BaseFont bfChinese = BaseFont.createFont("C:\\windows\\fonts\\KAIU.TTF", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);// 定義基本字體
+            Font fontChinese = new Font(bfChinese, 28, Font.NORMAL);// 實例化字體
+            document.add(new com.lowagie.text.Paragraph("這是一個具有5列的表格",
+                    fontChinese));// 向文件中增加內容
+            Table table = new Table(5);// 建立一個5列的表格
+            // 將單元格順次的加入到表格，當一行充滿時自動換行
+            table.addCell("1,1");
+            table.addCell("1,2");
+            table.addCell("1,3");
+            table.addCell("1,4");
+            table.addCell("1,5");
+            table.addCell("2,1");
+            table.addCell("2,2");
+            table.addCell("2,3");
+            table.addCell("2,4");
+            table.addCell("2,5");
+            document.add(table);// 將表格增加到文件中
+            document.close();// 關閉文件
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
